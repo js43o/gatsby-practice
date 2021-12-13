@@ -17,7 +17,6 @@ const TemplateBlock = styled.div`
 `;
 
 const ContentsBlock = styled.div`
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;

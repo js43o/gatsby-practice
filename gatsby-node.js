@@ -20,7 +20,7 @@ exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
   });
 };
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `Mdx`) {

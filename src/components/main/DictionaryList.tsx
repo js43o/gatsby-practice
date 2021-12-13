@@ -8,6 +8,7 @@ const DictionaryListBlock = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  padding: 1rem;
 `;
 
 const ItemBlock = styled(Link)`

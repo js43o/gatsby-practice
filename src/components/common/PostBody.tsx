@@ -9,6 +9,7 @@ const PostBodyBlock = styled.article`
   @media (max-width: 768px) {
     width: 100%;
   }
+  padding: 1rem;
 
   // markdown styles
   body {

@@ -35,7 +35,7 @@ type DictionaryContentProps = {
   };
 };
 
-const DictionaryPage = ({
+const DictionaryTemplate = ({
   data: {
     mdx: {
       body,
@@ -83,7 +83,7 @@ const DictionaryPage = ({
   );
 };
 
-export default DictionaryPage;
+export default DictionaryTemplate;
 
 export const query = graphql`
   query ($slugs: String) {
