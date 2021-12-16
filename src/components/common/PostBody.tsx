@@ -1,14 +1,8 @@
-import styled from '@emotion/styled';
-import { GatsbyImage, getImage, ImageDataLike } from 'gatsby-plugin-image';
-import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { node } from 'prop-types';
 import React from 'react';
+import styled from '@emotion/styled';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 
 const PostBodyBlock = styled.article`
-  width: 768px;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
   padding: 1rem;
 
   // markdown styles

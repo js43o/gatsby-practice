@@ -8,15 +8,16 @@ const DictionaryListBlock = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  padding: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
 `;
 
 const ItemBlock = styled(Link)`
   display: flex;
   padding: 0.5rem;
   margin-top: 0.5rem;
-  border: 1px solid ${palette.bluegrey[600]};
-  background: ${palette.grey[100]};
+  border-radius: 0.25rem;
+  background: ${palette.grey[200]};
 `;
 
 ItemBlock.defaultProps = {
@@ -43,7 +44,7 @@ const Dictionary = () => {
           node {
             id
             frontmatter {
-              title
+              title_kr
             }
             fields {
               slugs
@@ -56,13 +57,12 @@ const Dictionary = () => {
 
   return (
     <DictionaryListBlock>
-      <h1>목록</h1>
       {response.allMdx.edges.map(item => (
         <ItemBlock
           key={item.node.id}
           to={`/dictionary/${item.node.fields.slugs}`}
         >
-          {item.node.frontmatter.title}
+          {item.node.frontmatter.title_kr}
         </ItemBlock>
       ))}
     </DictionaryListBlock>

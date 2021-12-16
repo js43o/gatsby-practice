@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import PostBody from 'components/common/PostBody';
 import Template from 'components/common/Template';
 import { graphql } from 'gatsby';

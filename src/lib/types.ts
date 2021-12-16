@@ -13,7 +13,8 @@ export type PostFrontmatter = {
 };
 
 export type DictionaryFrontmatter = {
-  title: string;
+  title_kr: string;
+  title_en: string;
   species: string;
   weight: string;
   height: string;

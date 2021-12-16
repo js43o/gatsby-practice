@@ -24,7 +24,7 @@ exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `Mdx`) {
-    const value = slugify(node.frontmatter.title, { lower: true });
+    const value = slugify(node.frontmatter.title_en, { lower: true });
     createNodeField({ node, name: 'slugs', value });
   }
 };
@@ -38,7 +38,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     {
       allMdx(
         filter: { frontmatter: { category: { eq: "dictionary" } } }
-        sort: { order: DESC, fields: frontmatter___title }
+        sort: { order: DESC, fields: frontmatter___title_en }
       ) {
         edges {
           node {

@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import GlobalStyle from 'components/common/GlobalStyle';
+import { graphql, useStaticQuery } from 'gatsby';
 import { Helmet } from 'react-helmet';
+import GlobalStyle from 'components/common/GlobalStyle';
 import styled from '@emotion/styled';
 import Header from './Header';
-import { graphql, useStaticQuery } from 'gatsby';
 import Footer from './Footer';
 
 type TemplateProps = {
@@ -20,6 +20,11 @@ const ContentsBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 768px;
+  padding: 1rem;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 type query = {
@@ -78,4 +83,4 @@ const Template = ({ children }: TemplateProps) => {
   );
 };
 
-export default Template;
+export default React.memo(Template);
