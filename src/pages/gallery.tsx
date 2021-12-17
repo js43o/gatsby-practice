@@ -2,9 +2,17 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { graphql } from 'gatsby';
 import { IGatsbyImageData } from 'gatsby-plugin-image';
 import Template from 'components/common/Template';
+import GalleryCategory from 'components/main/GalleryCategory';
 import ImageViewer from 'components/main/ImageViewer';
 import GalleryList from 'components/main/GalleryList';
-import { ImageItem } from 'lib/useInfinityScroll';
+import useInfinityScroll from 'lib/useInfinityScroll';
+
+export type ImageItem = {
+  id: string;
+  image: IGatsbyImageData;
+  alt: string;
+  dir: string;
+};
 
 type GalleryPageProps = {
   data: {
@@ -17,6 +25,7 @@ type GalleryPageProps = {
               gatsbyImageData: IGatsbyImageData;
             };
             name: string;
+            relativeDirectory: string;
           };
         },
       ];
@@ -29,6 +38,7 @@ const GalleryPage = ({
     allFile: { edges },
   },
 }: GalleryPageProps) => {
+  const [category, setCategory] = useState('all');
   const data = useMemo<ImageItem[]>(
     () =>
       edges.map(
@@ -37,31 +47,39 @@ const GalleryPage = ({
             id,
             childImageSharp: { gatsbyImageData },
             name,
+            relativeDirectory,
           },
-        }) => ({ image: gatsbyImageData, alt: name, id }),
+        }) => ({
+          id,
+          image: gatsbyImageData,
+          alt: name,
+          dir: relativeDirectory,
+        }),
       ),
     [],
   );
 
-  const [currentIndex, setCurrentIndex] = useState(-1);
-  const openImage = useCallback((index: number) => setCurrentIndex(index), []);
-  const closeImage = () => setCurrentIndex(-1);
-  const increaseIndex = () =>
-    setCurrentIndex(currentIndex === data.length - 1 ? 0 : currentIndex + 1);
-  const decreaseIndex = () =>
-    setCurrentIndex(currentIndex === 0 ? data.length - 1 : currentIndex - 1);
+  const {
+    images,
+    ref,
+    currentIndex,
+    actions: { openImage, closeImage, increaseIndex, decreaseIndex },
+  } = useInfinityScroll(data, category);
+
+  const changeCategory = useCallback((name: string) => setCategory(name), []);
 
   return (
     <>
       <ImageViewer
-        data={data}
+        images={images}
         currentIndex={currentIndex}
         closeImage={closeImage}
         increaseIndex={increaseIndex}
         decreaseIndex={decreaseIndex}
       />
       <Template>
-        <GalleryList data={data} openImage={openImage} />
+        <GalleryCategory changeCategory={changeCategory} />
+        <GalleryList images={images} innerRef={ref} openImage={openImage} />
       </Template>
     </>
   );
@@ -71,7 +89,7 @@ export default GalleryPage;
 
 export const query = graphql`
   {
-    allFile(filter: { relativeDirectory: { eq: "gallery" } }) {
+    allFile(filter: { relativeDirectory: { regex: "/gallery/" } }) {
       edges {
         node {
           id
@@ -79,6 +97,7 @@ export const query = graphql`
             gatsbyImageData(width: 768)
           }
           name
+          relativeDirectory
         }
       }
     }

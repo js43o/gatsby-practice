@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
 import React from 'react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
+import styled from '@emotion/styled';
 import { DictionaryFrontmatter, MarkdownNode } from 'lib/types';
 import palette from 'lib/palette';
 

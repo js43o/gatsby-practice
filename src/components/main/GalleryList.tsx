@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import styled from '@emotion/styled';
-import { GatsbyImage } from 'gatsby-plugin-image';
-import useInfinityScroll, { ImageItem } from 'lib/useInfinityScroll';
+import GalleryItem from './GalleryItem';
+import { ImageItem } from 'pages/gallery';
 
 const GalleryListBlock = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: 1fr;
+  grid-auto-rows: 180px;
   width: 768px;
   grid-gap: 0.25rem;
   padding: 1rem;
@@ -14,47 +14,30 @@ const GalleryListBlock = styled.div`
     grid-template-columns: 1fr 1fr;
     width: 100%;
   }
-`;
-
-const ImageBlock = styled(GatsbyImage)<{ title: string }>`
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  &:hover {
-    img {
-      transition: all 0.25s;
-      filter: brightness(0.5);
-    }
-    &::after {
-      z-index: 5;
-      position: absolute;
-      color: white;
-      content: '${props => props.title}';
-    }
+  @media (max-width: 430px) {
+    grid-auto-rows: 90px;
   }
 `;
 
 type GalleryListProps = {
-  data: ImageItem[];
+  images: ImageItem[];
+  innerRef: MutableRefObject<HTMLDivElement | null>;
   openImage: (index: number) => void;
 };
 
-const GalleryList = ({ data, openImage }: GalleryListProps) => {
-  const { images, ref } = useInfinityScroll(data);
-
+const GalleryList = ({ images, innerRef, openImage }: GalleryListProps) => {
   if (!images) return null;
 
   return (
-    <GalleryListBlock ref={ref}>
+    <GalleryListBlock ref={innerRef}>
       {images.map(({ image, alt, id }, index) => (
-        <ImageBlock
-          title={alt}
+        <GalleryItem
           key={id}
-          className="item"
+          title={alt}
           image={image}
           alt={alt}
-          onClick={() => openImage(index)}
-          objectFit="cover"
+          openImage={openImage}
+          index={index}
         />
       ))}
     </GalleryListBlock>

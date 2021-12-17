@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React from 'react';
 import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from '@emotion/styled';
-import { DictionaryFrontmatter, MarkdownNode } from 'lib/types';
 import Template from 'components/common/Template';
 import DictionaryList from 'components/main/DictionaryList';
 import PostBody from 'components/common/PostBody';
+import { DictionaryFrontmatter, MarkdownNode } from 'lib/types';
 import palette from 'lib/palette';
 
 const DictionaryBlock = styled.div`
@@ -48,7 +48,6 @@ const DictionaryTemplate = ({
   data: {
     mdx: {
       body,
-      id,
       frontmatter: {
         title_kr,
         title_en,

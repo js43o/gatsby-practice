@@ -6,10 +6,6 @@ import styled from '@emotion/styled';
 import Header from './Header';
 import Footer from './Footer';
 
-type TemplateProps = {
-  children: ReactNode;
-};
-
 const TemplateBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,6 +35,10 @@ type query = {
   file: {
     publicURL: string;
   };
+};
+
+type TemplateProps = {
+  children: ReactNode;
 };
 
 const Template = ({ children }: TemplateProps) => {

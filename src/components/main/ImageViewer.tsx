@@ -1,8 +1,8 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import styled from '@emotion/styled';
 import { AiOutlineLeft, AiOutlineRight, AiOutlineClose } from 'react-icons/ai';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import { ImageItem } from 'lib/useInfinityScroll';
+import { ImageItem } from 'pages/gallery';
 
 const ImageViewerBlock = styled.div`
   display: flex;
@@ -14,14 +14,14 @@ const ImageViewerBlock = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.75);
   .arrow {
-    z-index: 300;
     position: fixed;
-    color: white;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 3rem;
+    z-index: 300;
     padding: 0.5rem;
+    border-radius: 50%;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 3rem;
+    cursor: pointer;
     &:hover {
       opacity: 0.75;
     }
@@ -31,11 +31,11 @@ const ImageViewerBlock = styled.div`
   }
   h4 {
     position: fixed;
-    color: white;
     bottom: 1rem;
-    font-size: 1.5rem;
-    background: rgba(0, 0, 0, 0.5);
     padding: 0.25rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 1.5rem;
   }
 `;
 
@@ -46,12 +46,13 @@ const Next = styled(AiOutlineRight)`
   right: 0.5rem;
 `;
 const Close = styled.div`
+  z-index: 300;
   position: absolute;
-  color: white;
-  font-size: 2rem;
   top: 0;
   right: 0;
   padding: 0.5rem;
+  color: white;
+  font-size: 2rem;
   cursor: pointer;
   &:hover {
     opacity: 0.75;
@@ -62,7 +63,7 @@ const Close = styled.div`
 `;
 
 type ImageViewerProps = {
-  data: ImageItem[];
+  images: ImageItem[];
   currentIndex: number;
   closeImage: () => void;
   increaseIndex: () => void;
@@ -70,7 +71,7 @@ type ImageViewerProps = {
 };
 
 const ImageViewer = ({
-  data,
+  images,
   currentIndex,
   closeImage,
   increaseIndex,
@@ -85,11 +86,11 @@ const ImageViewer = ({
       </Close>
       <Prev className="arrow" onClick={decreaseIndex} />
       <GatsbyImage
-        image={data[currentIndex].image}
-        alt={data[currentIndex].alt}
+        image={images[currentIndex].image}
+        alt={images[currentIndex].alt}
       />
       <Next className="arrow" onClick={increaseIndex} />
-      <h4>{data[currentIndex].alt}</h4>
+      <h4>{images[currentIndex].alt}</h4>
     </ImageViewerBlock>
   );
 };
